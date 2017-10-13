@@ -7,7 +7,7 @@ import keras
 
 
 class Agent:
-    def __init__(self, state_size, action_size):
+    def __init__(self):
 
         self.gamma = 0.99
         self.explorationRate = 1.0 #to replace with expo
@@ -16,10 +16,10 @@ class Agent:
         self.initializeNetwork()
 
     def initializeNetwork(self):
-        myModel = Sequential()
+        myModel = keras.models.Sequential()
 
         return myModel
 
 
-
-
+if __name__ == "__main__":
+    myAgent = Agent()
