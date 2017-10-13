@@ -4,7 +4,7 @@ import random
 import keras
 
 class KerasAgent:
-    def __init__(self):
+    def __init__(self,aExplorationFunction):
 
         self.gamma = 0.99
         self.explorationRate = 1.0 #to replace with expo
@@ -12,6 +12,7 @@ class KerasAgent:
         self.learning_rate = 0.03
         self.model = self.initializeNetwork()
         self.simulationNumber = 500
+        self.explorationFunction = aExplorationFunction
 
 
 
@@ -21,7 +22,7 @@ class KerasAgent:
         return myModel
 
     def act(self, state):
-        if np.random.rand() < functions.getEpsilon:
+        if np.random.rand() < self.explorationFunction.getExplorationChance():
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
         return np.argmax(act_values[0]) # returns action
