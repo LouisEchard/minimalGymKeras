@@ -1,24 +1,7 @@
 import gym
-import numpy as np
-import pandas as pd
-import random
-import keras
 
+import Agent
 
-
-class Agent:
-    def __init__(self):
-
-        self.gamma = 0.99
-        self.explorationRate = 1.0 #to replace with expo
-        self.decay = 0.99
-        self.learning_rate = 0.03
-        self.model = self.initializeNetwork()
-
-    def initializeNetwork(self):
-        myModel = keras.models.Sequential()
-
-        return myModel
 
 
 if __name__ == "__main__":
@@ -27,4 +10,9 @@ if __name__ == "__main__":
     myStateSize = myEnv.observation_space.shape[0]
     myActionSize = myEnv.action_space.n
     isDone = False
-    myBatchSize = 32
+
+    for sim in range(myAgent.simulationNumber):
+        myState = myEnv.reset()
+
+        for time in range(100):
+            myAction = myAgent.runner()
