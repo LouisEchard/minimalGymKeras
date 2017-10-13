@@ -13,4 +13,13 @@ class Agent:
         self.explorationRate = 1.0 #to replace with expo
         self.decay = 0.99
         self.learning_rate = 0.03
+        self.initializeNetwork()
+
+    def initializeNetwork(self):
+        myModel = Sequential()
+
+        return myModel
+
+
+
 
