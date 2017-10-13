@@ -13,7 +13,7 @@ class Agent:
         self.explorationRate = 1.0 #to replace with expo
         self.decay = 0.99
         self.learning_rate = 0.03
-        self.initializeNetwork()
+        self.model = self.initializeNetwork()
 
     def initializeNetwork(self):
         myModel = keras.models.Sequential()
@@ -23,3 +23,8 @@ class Agent:
 
 if __name__ == "__main__":
     myAgent = Agent()
+    myEnv = gym.make('CartPole-v1')
+    myStateSize = myEnv.observation_space.shape[0]
+    myActionSize = myEnv.action_space.n
+    isDone = False
+    myBatchSize = 32
