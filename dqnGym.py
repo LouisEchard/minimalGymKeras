@@ -1,6 +1,7 @@
 import gym
 
 import Agent
+import functions
 
 
 
@@ -10,6 +11,7 @@ if __name__ == "__main__":
     myStateSize = myEnv.observation_space.shape[0]
     myActionSize = myEnv.action_space.n
     isDone = False
+    myExploration = functions.getExplorationFunction(functions.explorationFunctions.fixed)
 
     for sim in range(myAgent.simulationNumber):
         myState = myEnv.reset()

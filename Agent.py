@@ -21,7 +21,7 @@ class KerasAgent:
         return myModel
 
     def act(self, state):
-        if np.random.rand() <= self.epsilon:
+        if np.random.rand() < functions.getEpsilon:
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
         return np.argmax(act_values[0]) # returns action
