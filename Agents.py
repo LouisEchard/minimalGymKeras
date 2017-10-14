@@ -11,13 +11,29 @@ class KerasAgent:
         self.decay = 0.99
         self.learning_rate = 0.03
         self.model = self.initializeNetwork()
+        self.targetModel = self.initializeNetwork()
         self.simulationNumber = 500
         self.explorationFunction = aExplorationFunction
+        self.memory = list()
+        self.updateTarget()
 
+    def ownLoss(self, aTarget, aPreds):
+        myError = aPreds - aTarget
+
+        return myError
+
+    def updateTarget(self):
+
+        # copy weights from model to target_model
+        self.targetModel.set_weights(self.model.get_weights())
 
 
     def initializeNetwork(self):
         myModel = keras.models.Sequential()
+        myModel.add(keras.layers.Dense(24, input_dim=self.state_size, activation='relu'))
+        myModel.add(keras.layers.Dense(24, activation= 'relu'))
+        myModel.add(keras.layers.Dense(self.outputSize, activation='linear'))
+        myModel.compile(loss=self.ownLoss, optimizer=keras.optimizers.Adam(lr=self.learning_rate))
 
         return myModel
 
