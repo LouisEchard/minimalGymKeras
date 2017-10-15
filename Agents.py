@@ -4,8 +4,9 @@ import random
 import keras
 
 class KerasAgent:
-    def __init__(self,aExplorationFunction):
-
+    def __init__(self,aExplorationFunction, aStateSize, aOutputSize):
+        self.stateSize = aStateSize
+        self.outputSize = aOutputSize
         self.gamma = 0.99
         self.explorationRate = 1.0 #to replace with expo
         self.decay = 0.99
@@ -30,15 +31,16 @@ class KerasAgent:
 
     def initializeNetwork(self):
         myModel = keras.models.Sequential()
-        myModel.add(keras.layers.Dense(24, input_dim=self.state_size, activation='relu'))
+        myModel.add(keras.layers.Dense(24, input_dim=self.stateSize, activation='relu'))
         myModel.add(keras.layers.Dense(24, activation= 'relu'))
         myModel.add(keras.layers.Dense(self.outputSize, activation='linear'))
         myModel.compile(loss=self.ownLoss, optimizer=keras.optimizers.Adam(lr=self.learning_rate))
 
         return myModel
 
-    def act(self, state):
+    def run(self, state):
         if np.random.rand() < self.explorationFunction.getExplorationChance():
             return random.randrange(self.action_size)
         act_values = self.model.predict(state)
-        return np.argmax(act_values[0]) # returns action
+        return np.argmax(act_values[0])
+
